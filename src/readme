@@ -1,0 +1,11 @@
+面试内容：基础，项目，场景分析
+常见考点
+１　高并发，秒杀场景的优化
+２　缓存服务，分布式队列，负载均衡
+３　jvm，线程，并发，锁，内存模型，CurrentHashMap的演化
+４　垃圾回收器cms，jvm调优
+５　线程池Excutor, fork, join框架，aio, nio, future
+６　数据库引擎innodb
+７　分布式cap理论，base理论，保证一致性，三段式算法的优缺点
+８　zookeeper，mysql主从分离数据同步
+９　最近看的书
