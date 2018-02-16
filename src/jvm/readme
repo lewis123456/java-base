@@ -23,3 +23,22 @@ java堆：虚拟机启动时创建，分代收集算法，eden, from survivor, t
 而只是在常量池中生成一个对原字符串的引用。简单的说，就是往常量池放的东西变了：原来在常量池中找不到时，
 复制一个副本放到常量池，1.7后则是将在堆上的地址引用复制到常量池。
 
+直接内存：Java的NIO，基于通道和缓冲区的I/O方式，使用本地函数库直接分配堆外内存
+
+java采用分代收集算法，新生代和老年代。新生代由eden, from survivor, to survivor三部分组成，
+其内存大小的比例是8:1:1。新生代常使用复制算法进行垃圾收集，分配内存时在eden和from survivor进行
+分配，垃圾收集时将eden和from survivor中仍然存活的对象复制到to survivor。多次进行minor gc后，
+如果对象还存活在to survivor，就将这些对象复制到老年代，老年代一般使用标记整理算法。
+minor gc触发的条件：eden区满了
+full gc触发条件：
+  a 调用system.gc
+  b 老年代空间不足
+  c 方法区空间不足
+  d 通过minor gc进入老年代的平均大小大于老年代的可用内存
+  e 由Eden区、From Space区向To Space区复制时，对象大小大于To Space可用内存，
+  则把该对象转存到老年代，且老年代的可用内存小于该对象大小
+
+CMS
+G1
+gc的各种组合
+
