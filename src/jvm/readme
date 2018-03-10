@@ -27,8 +27,10 @@ java堆：虚拟机启动时创建，分代收集算法，eden, from survivor, t
 
 java采用分代收集算法，新生代和老年代。新生代由eden, from survivor, to survivor三部分组成，
 其内存大小的比例是8:1:1。新生代常使用复制算法进行垃圾收集，分配内存时在eden和from survivor进行
-分配，垃圾收集时将eden和from survivor中仍然存活的对象复制到to survivor。多次进行minor gc后，
-如果对象还存活在to survivor，就将这些对象复制到老年代，老年代一般使用标记整理算法。
+分配，垃圾收集时将eden和from survivor中仍然存活的对象复制到to survivor。交换from survivor和
+to survivor，保证to survivor始终为空。（eden区的对象都会复制到survivor to，但是survivor from
+中的对象会根据年龄分配到survivor to或者直接进入老年代）。多次进行minor gc后，survivor to区被填满后，
+会将对象都转移到老年代。老年代一般使用标记整理算法。
 minor gc触发的条件：eden区满了
 full gc触发条件：
   a 调用system.gc
